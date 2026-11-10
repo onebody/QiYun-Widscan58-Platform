@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widscan58 设备管理操作手册 — WiFi 中继节点配置</title>
+<style>
+  :root {
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --up: #16a34a;
+    --down: #dc2626;
+    --warn: #d97706;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --text: #1f2937;
+    --text-dim: #6b7280;
+    --chip-up-bg: #dcfce7;
+    --chip-up-text: #15803d;
+    --chip-down-bg: #fee2e2;
+    --chip-down-text: #b91c1c;
+    --chip-q-bg: #fef3c7;
+    --chip-q-text: #b45309;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.7;
+  }
+  header {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 8px; font-size: 32px; font-weight: 700; }
+  header p { margin: 0; opacity: 0.85; font-size: 15px; }
+  header .meta {
+    margin-top: 16px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+  nav.toc {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  nav.toc h3 { margin: 0 0 10px; font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  nav.toc ol { margin: 0; padding-left: 20px; }
+  nav.toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  nav.toc a:hover { text-decoration: underline; }
+  main { max-width: 880px; margin: 0 auto; padding: 40px 24px; }
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 24px;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+    margin: 0 0 20px;
+  }
+  h3 { font-size: 18px; margin: 24px 0 12px; }
+  h4 { font-size: 15px; color: var(--text-dim); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .step-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .step-num {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .step-title { font-size: 17px; font-weight: 600; vertical-align: middle; }
+  .step-content { margin-top: 14px; }
+  .step-content img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .step-content p { margin: 8px 0; }
+  .highlight-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+  .highlight-box strong { color: var(--accent-dark); }
+  .warn-box {
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+  .warn-box::before { content: "⚠️ "; }
+  .tip-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+  .tip-box::before { content: "💡 "; }
+  code {
+    background: #f3f4f6;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: #374151;
+  }
+  pre {
+    background: #1f2937;
+    color: #e5e7eb;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    margin: 12px 0;
+    line-height: 1.55;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  th { background: #f9fafb; font-weight: 600; }
+  .chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+  }
+  .chip.up { background: var(--chip-up-bg); color: var(--chip-up-text); }
+  .chip.down { background: var(--chip-down-bg); color: var(--chip-down-text); }
+  .chip.q { background: var(--chip-q-bg); color: var(--chip-q-text); }
+  .flow-diagram {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+    text-align: center;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    color: #374151;
+  }
+  .flow-diagram .node {
+    display: inline-block;
+    border: 2px solid var(--accent);
+    background: #eff6ff;
+    color: var(--accent-dark);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin: 4px;
+  }
+  .flow-diagram .arrow { color: var(--accent); font-weight: 700; }
+  .flow-diagram .node.s3 { border-color: #7c3aed; background: #faf5ff; color: #6d28d9; }
+  .flow-diagram .node.c5 { border-color: #db2777; background: #fdf2f8; color: #be185d; }
+  .flow-diagram .arrow-wifi { color: #16a34a; }
+  figcaption {
+    color: var(--text-dim);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .hero-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+  }
+  .hero-card .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .hero-card .label { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-item .q { font-weight: 600; color: var(--text); }
+  .faq-item .a { color: var(--text-dim); margin-top: 6px; font-size: 14px; }
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-dim);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  @media print {
+    nav.toc { position: static; }
+    body { background: white; }
+    .step-card { page-break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Widscan58 设备管理操作手册</h1>
+  <p>WiFi 中继节点（ESP32-S3 Relay）配置与 SoftAP 救援指南</p>
+  <div class="meta">版本 1.0 · 更新 2026-11-06 · 适用固件 rftrack-baseline-v0.1.0-65-gc54</div>
+</header>
+
+<nav class="toc">
+  <h3>目录</h3>
+  <ol>
+    <li><a href="#overview">系统概述 — 硬件链路图解</a></li>
+    <li><a href="#prepare">准备工作 — 启动 serve.mjs</a></li>
+    <li><a href="#connect">步骤 1 · 连接中继节点</a></li>
+    <li><a href="#open">步骤 2 · 打开设备管理面板</a></li>
+    <li><a href="#status">步骤 3 · 查看网络状态</a></li>
+    <li><a href="#scan">步骤 4 · 扫描周围 WiFi</a></li>
+    <li><a href="#save">步骤 5 · 保存并连接新 WiFi</a></li>
+    <li><a href="#softap">SoftAP 备用模式 — 救砖指南</a></li>
+    <li><a href="#c5">C5 扫描器模式切换</a></li>
+    <li><a href="#troubleshoot">常见问题排查</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ==================== 1. OVERVIEW ==================== -->
+<section id="overview">
+  <h2>系统概述 — 硬件链路图解</h2>
+
+  <p>Widscan58 的 WiFi 中继系统由三个组件组成，理解它们之间的关系是成功配置的前提。</p>
+
+  <div class="flow-diagram">
+    <div class="node c5">ESP32-C5<br>（射频扫描头）</div>
+    <div class="arrow">— UART 921600 →</div>
+    <div class="node s3">ESP32-S3<br>（WiFi 中继）</div>
+    <div class="arrow arrow-wifi">— Wi-Fi / WebSocket →</div>
+    <div class="node">serve.mjs<br>（Node.js 网关）</div>
+    <div class="arrow">— HTTP →</div>
+    <div class="node">浏览器<br>（前端 Dashboard）</div>
+  </div>
+
+  <h3>各组件职责</h3>
+  <table>
+    <thead>
+      <tr><th>组件</th><th>型号</th><th>职责</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>扫描头</td><td><code>ESP32-C5-DevKitC-1</code></td><td>负责 5.8GHz 频谱扫描，通过 UART 把数据发给 S3</td></tr>
+      <tr><td>WiFi 中继</td><td><code>ESP32-S3-DevKitC-1 Micro</code></td><td>Wi-Fi STA 连路由器；WebSocket 连 serve.mjs；同时是 UART 主控</td></tr>
+      <tr><td>网关</td><td>Node.js <code>serve.mjs</code></td><td>统一入口：HTTP 静态文件 + WebSocket 串口桥接 + UDP 节点发现</td></tr>
+      <tr><td>前端</td><td>浏览器</td><td>频谱图、频道配置、设备管理面板</td></tr>
+    </tbody>
+  </table>
+
+  <h3>两种板卡角色</h3>
+  <div class="hero-grid">
+    <div class="hero-card">
+      <div class="num">Relay</div>
+      <div class="label">WiFi 中继节点（有 NET 命令）</div>
+    </div>
+    <div class="hero-card">
+      <div class="num">Head</div>
+      <div class="label">射频扫描头（只负责频谱）</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>重要：</strong>「设备管理」面板上的所有 WiFi 命令（<code>NET STATUS</code>、<code>NET SCAN</code>、<code>NET AP</code>）都只发给 <strong>S3 WiFi 中继</strong>，不会发给 C5 扫描头。如果你把设备管理面板连到 C5（直接 USB 插电脑那块），所有 NET 命令都会返回 <code>ERR command</code>。
+  </div>
+</section>
+
+<!-- ==================== 2. PREPARE ==================== -->
+<section id="prepare">
+  <h2>准备工作 — 启动 serve.mjs</h2>
+
+  <div class="step-card">
+    <span class="step-num">1</span><span class="step-title">启动 Node.js 网关</span>
+    <div class="step-content">
+      <p>在电脑终端里运行以下命令：</p>
+      <pre><code>cd /path/to/widscan58-clone/repo/web
+node serve.mjs --host 0.0.0.0 --port 8080 --dir dist</code></pre>
+      <p>启动成功后会看到类似输出：</p>
+      <pre><code>Serving .../dist
+Serial bridge: ws://<host>:8080/serial?ep=serial:/dev/cu.usbmodem*
+Relay nodes: ws://<host>:8080/node?id=<name>
+Discovery: UDP port 45124</code></pre>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">2</span><span class="step-title">确认板卡已连接</span>
+    <div class="step-content">
+      <p>浏览器打开 <code>http://localhost:8080</code>，看右上角的端点选择器：</p>
+      <ul>
+        <li><code>cu.usbmodemXXXX</code> — USB 直接插电脑的板卡（C5 或 S3）</li>
+        <li><code>无线节点 relay-s3-01</code> — 通过 WiFi 连上来的 S3 中继</li>
+      </ul>
+      <p>「无线节点」只有当 S3 中继已连到路由器、且 <code>serve.mjs</code> 正常运行时才会出现。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. CONNECT ==================== -->
+<section id="connect">
+  <h2>步骤 1 · 连接中继节点</h2>
+
+  <div class="step-card">
+    <span class="step-num">3</span><span class="step-title">选择并连接中继</span>
+    <div class="step-content">
+      <p>在顶部端点选择下拉框中选 <strong>无线节点 relay-s3-01</strong>，点击「连接」按钮。</p>
+      <img src="assets/step1-dashboard.jpg" alt="端点选择器显示 relay-s3-01">
+      <figcaption>图 1 · 端点选择器列出 USB 板卡和无线中继</figcaption>
+
+      <div class="tip-box">
+        如果端点选择器只显示「选择板卡…」一项，说明 S3 中继还没通过 WiFi 连上来。检查：
+        <ul>
+          <li>S3 中继是否已在 NVS 里保存了正确的 WiFi SSID/密码</li>
+          <li>路由器是否正常工作（S3 的 STA 模式是自动连路由器的）</li>
+          <li>如果连不上，跳转到本文档 <a href="#softap">SoftAP 备用模式</a> 用浏览器直接配</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">4</span><span class="step-title">确认连接状态</span>
+    <div class="step-content">
+      <p>连接成功后，端点选择器旁的按钮变成「断开」，频谱图区域开始刷新。</p>
+      <img src="assets/step2-connected.jpg" alt="连接成功后的页面">
+      <figcaption>图 2 · 连接成功 — 按钮显示「断开」</figcaption>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. OPEN DIALOG ==================== -->
+<section id="open">
+  <h2>步骤 2 · 打开设备管理面板</h2>
+
+  <div class="step-card">
+    <span class="step-num">5</span><span class="step-title">点击「设备管理」按钮</span>
+    <div class="step-content">
+      <p>在顶部按钮栏里找到「设备管理」（在「烧录设备」右边），点击打开 WiFi 设置面板。</p>
+      <img src="assets/step3-dialog-open.jpg" alt="设备管理面板打开">
+      <figcaption>图 3 · 设备管理面板包含 4 个分区</figcaption>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. STATUS ==================== -->
+<section id="status">
+  <h2>步骤 3 · 查看网络状态</h2>
+
+  <div class="step-card">
+    <span class="step-num">6</span><span class="step-title">点击「刷新状态」</span>
+    <div class="step-content">
+      <p>面板默认显示空状态（所有 chip 为灰色 —），需要手动点一次「刷新状态」让面板去问板子当前的网络配置。</p>
+      <img src="assets/step4-status-refreshed.jpg" alt="刷新后的网络状态">
+      <figcaption>图 4 · 刷新后的状态卡片</figcaption>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">7</span><span class="step-title">读懂状态卡片</span>
+    <div class="step-content">
+      <p>面板有 4 个状态 chip，颜色含义如下：</p>
+      <table>
+        <thead>
+          <tr><th>Chip</th><th>含义</th><th class="chip up" style="padding:2px 10px;display:inline-block">🟢 up</th><th class="chip down" style="padding:2px 10px;display:inline-block">🔴 down</th><th class="chip q" style="padding:2px 10px;display:inline-block">🟡 dial/q</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>STA</strong></td><td>WiFi 站点模式（连路由器）</td><td>连上了路由器，会显示 IP/SSID/RSSI</td><td>没连上</td><td>正在重连</td></tr>
+          <tr><td><strong>桥接</strong></td><td>WebSocket 到 serve.mjs</td><td>桥接正常</td><td>WS 断开</td><td>正在拨号重连</td></tr>
+          <tr><td><strong>SoftAP</strong></td><td>本机热点模式</td><td>热点已开启（救援状态）</td><td>热点关闭（正常状态）</td><td>—</td></tr>
+          <tr><td><strong>C5 模式</strong></td><td>射频扫描协议</td><td colspan="2">取值：MONITOR（频谱扫描）或 RH（RotorHazard 计圈）</td></tr>
+        </tbody>
+      </table>
+
+      <p>当 STA chip 显示绿色时，下方会多出一行：<br>
+      <code>IP: 192.168.8.167 · ccclubs (-62dBm)</code></p>
+
+      <div class="highlight-box">
+        <strong>刚才的实测值：</strong>
+        <code>{"on":true,"ssid":"ccclubs","ip4":"192.168.8.167","rssi":-62,"sta":true,"ws":true}</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. SCAN ==================== -->
+<section id="scan">
+  <h2>步骤 4 · 扫描周围 WiFi</h2>
+
+  <div class="step-card">
+    <span class="step-num">8</span><span class="step-title">点击「扫描 AP」</span>
+    <div class="step-content">
+      <p>点「扫描 AP」按钮，S3 中继会临时启动 APSTA 模式、把驱动带到扫描态、把周围所有 WiFi 列出来（按 RSSI 从强到弱排序，最多返回 20 个）。</p>
+
+      <div class="warn-box">
+        <strong>扫描耗时：</strong>固件端约需要 2–5 秒。等待期间 STA 连接可能短暂断开（因为 WiFi 驱动从 STA 切到 APSTA），扫描完成后自动恢复。
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">9</span><span class="step-title">选择目标 SSID</span>
+    <div class="step-content">
+      <p>扫描完成后，SSID 下拉框从「（无 — 点击扫描）」变成列出所有 AP，例如：</p>
+      <img src="assets/step5-ssids-scanned.jpg" alt="SSID 扫描结果">
+      <figcaption>图 5 · SSID 下拉框填充了周围 AP 列表</figcaption>
+
+      <p>选一个 SSID，也可以手动在下方输入框里敲（优先使用输入框的值）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. SAVE ==================== -->
+<section id="save">
+  <h2>步骤 5 · 保存并连接新 WiFi</h2>
+
+  <div class="step-card">
+    <span class="step-num">10</span><span class="step-title">填写完整参数并保存</span>
+    <div class="step-content">
+      <p>SSID 选好后，把下面几个字段填满：</p>
+      <table>
+        <thead><tr><th>字段</th><th>必填</th><th>示例</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>SSID</td><td>✅</td><td><code>ccclubs-访客</code></td><td>下拉选择或手动输入</td></tr>
+          <tr><td>Password</td><td>✅（加密 WiFi）</td><td><code>88190338</code></td><td>开放网络留空</td></tr>
+          <tr><td>服务器 URL</td><td>✅</td><td><code>ws://192.168.8.156:8080/node?id=relay-s3-01</code></td><td>S3 连 serve.mjs 的 WebSocket 地址</td></tr>
+          <tr><td>中继 ID</td><td>可选</td><td><code>relay-s3-01</code></td><td>节点名，与 URL 里的 id 一致</td></tr>
+        </tbody>
+      </table>
+
+      <p>服务器 URL 格式：<code>ws://&lt;serve.mjs 主机 IP&gt;:8080/node?id=&lt;中继 ID&gt;</code></p>
+      <p>点「保存并连接」，前端会批量发 6 条命令到板子：</p>
+      <pre><code>NET SSID ccclubs-访客
+NET PASS 88190338
+NET URL ws://192.168.8.156:8080/node?id=relay-s3-01
+NET ID relay-s3-01
+NET SAVE
+NET ON</code></pre>
+
+      <div class="tip-box">
+        <strong>验证：</strong>点完保存后再点一次「刷新状态」，如果 STA chip 变成绿色、IP/RSSI 正确，说明新 WiFi 生效了。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 8. SOFTAP ==================== -->
+<section id="softap">
+  <h2>SoftAP 备用模式 — 救砖指南</h2>
+
+  <p>如果 S3 中继里存的 WiFi SSID/密码写错了、或者路由器暂时挂了，S3 的自动 fallback 机制会救你出来。</p>
+
+  <div class="step-card">
+    <span class="step-num">11</span><span class="step-title">自动 fallback 逻辑</span>
+    <div class="step-content">
+      <p>S3 中继拨号失败 6 次（约 3 分钟）后，固件自动从 STA 模式切到 <strong>APSTA 模式</strong>，启动一个开放热点：</p>
+      <table>
+        <thead><tr><th>参数</th><th>值</th></tr></thead>
+        <tbody>
+          <tr><td>SSID</td><td><code>Widscan58-&lt;chipid&gt;</code>（芯片 ID 后 4 位，例如 <code>Widscan58-87e8c20e</code>）</td></tr>
+          <tr><td>密码</td><td>开放（无密码）</td></tr>
+          <tr><td>IP</td><td><code>192.168.4.1</code></td></tr>
+          <tr><td>HTTP 端口</td><td>80</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box">
+        <strong>手动触发：</strong>不想等 3 分钟？直接在设备管理面板点「开启 AP 模式」按钮。
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">12</span><span class="step-title">通过 SoftAP 网页配置</span>
+    <div class="step-content">
+      <p>1. 手机或电脑连上 <code>Widscan58-xxxx</code> 这个 WiFi</p>
+      <p>2. 浏览器访问 <code>http://192.168.4.1</code>（手机上可能自动弹配置页）</p>
+      <p>3. 配置页提供两个接口：</p>
+      <table>
+        <thead><tr><th>请求</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code>GET /cfg</code></td><td>读当前配置（SSID、URL 等）</td></tr>
+          <tr><td><code>POST /cfg</code> + JSON body</td><td>写新配置</td></tr>
+        </tbody>
+      </table>
+      <p>4. 填好正确的 WiFi 后点保存，板子自动重启。重启后连新 WiFi，再自动连 serve.mjs。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <span class="step-num">13</span><span class="step-title">设备面板里手动开/关 AP</span>
+    <div class="step-content">
+      <p>面板最下方「SoftAP 备用模式」区域有两个按钮：</p>
+      <img src="assets/step6-full-dialog.jpg" alt="SoftAP 和 C5 模式区域">
+      <figcaption>图 6 · SoftAP 开关 + C5 模式切换</figcaption>
+      <ul>
+        <li><strong>开启 AP 模式</strong> — 立刻启动热点（WiFi STA 会断开）</li>
+        <li><strong>关闭 AP 模式</strong> — 关闭热点，恢复 STA 拨号</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 9. C5 MODE ==================== -->
+<section id="c5">
+  <h2>C5 扫描器模式切换</h2>
+
+  <div class="step-card">
+    <span class="step-num">14</span><span class="step-title">两种模式的区别</span>
+    <div class="step-content">
+      <table>
+        <thead><tr><th>模式</th><th>适用场景</th><th>C5 行为</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MONITOR</strong><br>（默认）</td><td>频谱扫描、频道配置</td><td>持续发二进制扫描帧 → 前端显示实时频谱图</td></tr>
+          <tr><td><strong>RH</strong></td><td>RotorHazard 计圈比赛</td><td>C5 不发扫描帧 → UART 安静 → NET 命令畅通</td></tr>
+        </tbody>
+      </table>
+      <p>面板底部有「协议 MONITOR」和「协议 RH」两个按钮可切换。</p>
+
+      <div class="warn-box">
+        <strong>重要提示：</strong>NET SCAN 在 MONITOR 模式下也能工作，但有概率被扫描帧淹没而收不到回复。建议在配置 WiFi 时先切到 RH 模式，配好后再切回 MONITOR。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 10. TROUBLESHOOT ==================== -->
+<section id="troubleshoot">
+  <h2>常见问题排查</h2>
+
+  <div class="faq-item">
+    <div class="q">Q: 面板上所有状态 chip 显示灰色「—」，刷新也没反应？</div>
+    <div class="a">A: 板子可能在 MONITOR 模式下扫描帧淹没了 NET 命令回复。先切到 RH 模式再点刷新，或者确认你连的是 S3 relay（不是 C5 head）。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: 扫描 AP 后下拉框显示空，或者提示「（没有找到 AP）」？</div>
+    <div class="a">A: 固件端 <code>esp_wifi_scan_start()</code> 需要 STA 模式已初始化。确认 STA chip 在绿色状态再扫描；或者重启 S3（断电重插）让 WiFi 驱动重新就绪。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: STA chip 一直黄色「连接中」不转绿？</div>
+    <div class="a">A: 保存的 WiFi SSID/密码可能错了。先手动开 SoftAP → 手机连 <code>Widscan58-xxxx</code> → 浏览器 <code>http://192.168.4.1</code> 改对配置。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: 面板显示「已连接 · IP 正确」，但频谱图还是 0 跳？</div>
+    <div class="a">A: S3 中继在 RH 模式下不会转发扫描帧。切到 MONITOR 模式即可：<code>PROTOCOL MONITOR</code>。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: 连到 C5（<code>cu.usbmodem21201</code>）和连到 S3 relay 有什么区别？</div>
+    <div class="a">A: C5 只有射频扫描功能，没有 WiFi、没有 NET 命令。S3 relay 是 WiFi 中继 + UART 主控，所有 NET 命令都在它上面。频谱数据两者都能发，但只有 S3 有 WiFi 能力。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: serve.mjs 日志里出现「busy」或「taken over」？</div>
+    <div class="a">A: 同一个端点被两个 WebSocket 同时连。新的连接加 <code>?force=1</code> URL 参数会强制踢掉旧的。前端已自动处理；Node 脚本测试时记得加。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="q">Q: 中文 SSID 在扫描结果里显示乱码？</div>
+    <div class="a">A: ESP-IDF 的 WiFi 扫描 API 返回 UTF-8 编码，直接丢进 JSON 是正确的。如果出现 mojibake，检查串口工具是不是用 <code>latin1</code> 解码了原始字节。浏览器面板已验证中文 SSID（如「卓软科技」「ccclubs-访客」）能正常显示。</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Widscan58 设备管理操作手册 · 手动版本 v1.0 · 最后更新 2026-11-06<br>
+  适用固件 rftrack-baseline-v0.1.0-65-gc54 · serve.mjs commit HEAD
+</footer>
+
+</body>
+</html>

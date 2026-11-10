@@ -1,0 +1,13 @@
+Serving /Users/fcj/workspace/FPV_space/widscan58-clone/repo/web/dist
+  board and RotorHazard:  http://localhost:8010/
+Enter the RotorHazard address as http://<its-ip>:5000.
+Serial bridge: ws://<this-host>:8010/serial?ep=serial:<path>  (/dev/cu.usbmodem11301* @ 115200)
+  boards now: /dev/cu.usbmodem11301
+Relay nodes: ws://<this-host>:8010/node?id=<name>
+Board link switch: off (start with --rh-stop-cmd/--rh-start-cmd to enable)
+serial: bridging /dev/cu.usbmodem11301 to a page
+serial: /dev/cu.usbmodem11301 released
+serial: bridging /dev/cu.usbmodem11301 to a page
+serial: /dev/cu.usbmodem11301 released
+serial: bridging /dev/cu.usbmodem11301 to a page
+serial: /dev/cu.usbmodem11301 released
