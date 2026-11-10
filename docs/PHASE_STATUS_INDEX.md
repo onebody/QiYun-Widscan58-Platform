@@ -3,7 +3,7 @@
 > 项目：QiYun / widscan58
 > 文档版本：1.0.0
 > 创建日期：2026-11-05
-> 最后修改：2026-11-05
+> 最后修改：2026-11-11
 > 文档状态：**PROPOSED（索引文件，待人工确认）**
 > Baseline：NO — 本索引只登记真实状态，不是路由批准文件
 
@@ -16,7 +16,7 @@
 | 状态 | 含义 |
 |---|---|
 | `PROPOSED` | 已提出，未获人工批准 |
-| `APPROVED` | 人工书面批准（**本索引当前 0 条**） |
+| `APPROVED` | 人工书面批准（**本索引当前 15 条，均为 2026-11-11 批准**） |
 | `REJECTED` | 人工书面拒绝 |
 | `REVISION REQUIRED` | 退回修改 |
 | `DEFERRED` | 暂缓决定 |
@@ -35,9 +35,9 @@
 |---|---|---|---|---|
 | Phase 08.1 | `PHASE08_1_FRONTEND_ASSET_AUDIT.md` | `HISTORICAL_DRAFT` | 文件存在（birth 00:49:50） | 平台 UI 资产审计，无独立验收 |
 | Phase 08.2 | `PHASE08_2_*.md`（5 份） | `HISTORICAL_DRAFT` / `UNKNOWN`（先后关系） | 5 份文件存在；无审批记录 | 架构设计稿；未证明先于 08.4 实现 |
-| Phase 08.2.1 | `PHASE08_2_1_*.md`（5 份，含 3 ADR） | **`PROPOSED`** | `PHASE08_2_1_IMPLEMENTATION_DEPENDENCY_MATRIX.md`；3 份 ADR 首行状态 | 三份 ADR 全部未批准 |
-| Phase 08.2.2 | `PHASE08_2_2_*.md`（8 份，含 12 ADR） | **`PROPOSED`** | `PHASE08_2_2_SECURITY_DECISION_RECORD.md` §0 | 12 份 ADR 全部未批准 |
-| **Phase 08.2.3（RF 重基线）** | `PHASE08_2_3_*.md`（14 份）+ `PHASE08_2_4_*`（1 份） | **阶段 `CONDITIONAL PASS`；文档 `PROPOSED`** | `PHASE08_2_3_FINAL_CLOSURE_REPORT.md` §8/§10 | 设计交付齐全，A1–A10 未批 |
+| Phase 08.2.1 | `PHASE08_2_1_*.md`（5 份，含 3 ADR） | **`APPROVED`（3 份 ADR，2026-11-11）** | `PHASE08_2_1_IMPLEMENTATION_DEPENDENCY_MATRIX.md`；3 份 ADR 首行状态 | 三份 ADR 已人工批准，均含补充条件 |
+| Phase 08.2.2 | `PHASE08_2_2_*.md`（8 份，含 12 ADR） | **`APPROVED`（12 份 ADR，2026-11-11）** | `PHASE08_2_2_SECURITY_DECISION_RECORD.md` §0 | 12 份 ADR 已人工批准，-04/-06/-09/-10/-12 附补充条件；SP-00–17 仍未启动 |
+| **Phase 08.2.3（RF 重基线）** | `PHASE08_2_3_*.md`（14 份）+ `PHASE08_2_4_*`（1 份） | **阶段 `CONDITIONAL PASS`；文档 `PROPOSED`** | `PHASE08_2_3_FINAL_CLOSURE_REPORT.md` §8/§10 | 设计交付齐全；A1/A2 已批，A3–A10 未批 |
 | Phase 08.2.3-R1 | `PHASE08_2_3_R1_*.md`、本索引、证据目录 | **`PROPOSED`** | 本文件与 R1 两份审计 | 只处理 C-01/02/03 |
 | Phase 08.2.4（固件审计） | `PHASE08_2_4_RF_FIRMWARE_AUDIT_CHARTER.md` | **`PROPOSED`（仅立项建议，未启动）** | 章程 §治理声明 | 不得视为审计已执行 |
 | Phase 08.3（历史平台 UI 设计） | `PHASE08_3_UI_DESIGN_SYSTEM.md` | `HISTORICAL_DRAFT` | 文件 birth 01:16:19；无验收文档 | 设计规范；非 RF 阶段 |
@@ -71,7 +71,7 @@
 | `PHASE08_2_3_REQUIREMENTS_TRACEABILITY_MATRIX.md` | 1.0.0 | `PROPOSED` | NO |
 | `PHASE08_2_3_DECISION_REGISTER.md` | 1.0.0 | `PROPOSED` | NO |
 | `PHASE08_2_3_FINAL_CLOSURE_REPORT.md` | 1.0.1 | `PROPOSED`（阶段 CONDITIONAL PASS） | NO |
-| `PHASE08_2_3_HUMAN_APPROVAL_REGISTER.md` | 1.0.0 | `PROPOSED`（A1–A10 待批） | NO |
+| `PHASE08_2_3_HUMAN_APPROVAL_REGISTER.md` | 1.0.1 | `PARTIALLY APPROVED`（A1/A2 已批；A3–A10 待批） | NO |
 | `PHASE08_2_3_PROJECT_FREEZE_AND_GATES.md` | 1.0.1 | `PROPOSED` | NO |
 | `PHASE08_2_4_RF_FIRMWARE_AUDIT_CHARTER.md` | 1.0.0 | `PROPOSED`（未启动） | NO |
 | `PHASE08_2_3_FINAL_TRACEABILITY.md` | 1.0.1 | `PROPOSED` | NO |
@@ -84,28 +84,28 @@
 
 | ADR | 主题 | 状态 | 文件 |
 |---|---|---|---|
-| `ADR-08.2.1-01` | 多站点裁定 | **`PROPOSED`** | `PHASE08_2_1_MULTI_SITE_ADR.md` |
-| `ADR-08.2.1-02` | 事件流裁定 | **`PROPOSED`** | `PHASE08_2_1_EVENT_STREAM_ADR.md` |
-| `ADR-08.2.1-03` | 权限与安全裁定 | **`PROPOSED`** | `PHASE08_2_1_SECURITY_PERMISSION_ADR.md` |
+| `ADR-08.2.1-01` | 多站点裁定 | **`APPROVED`**（2026-11-11，含补充条件） | `PHASE08_2_1_MULTI_SITE_ADR.md` |
+| `ADR-08.2.1-02` | 事件流裁定 | **`APPROVED`**（2026-11-11，含补充条件） | `PHASE08_2_1_EVENT_STREAM_ADR.md` |
+| `ADR-08.2.1-03` | 权限与安全裁定 | **`APPROVED`**（2026-11-11，含补充条件） | `PHASE08_2_1_SECURITY_PERMISSION_ADR.md` |
 
 ### 4.2 Phase 08.2.2（12 份）
 
 | ADR | 主题 | 状态 |
 |---|---|---|
-| `ADR-08.2.2-01` | 用户认证载体（Opaque + Cookie / Bearer） | **`PROPOSED`** |
-| `ADR-08.2.2-02` | 会话生命周期、CSRF 与 XSS | **`PROPOSED`** |
-| `ADR-08.2.2-03` | 不采用 JWT 作为默认方案 | **`PROPOSED`** |
-| `ADR-08.2.2-04` | Agent 凭证体系保留并补齐生命周期 | **`PROPOSED`** |
-| `ADR-08.2.2-05` | mTLS 仅用于跨互联网多站点 | **`PROPOSED`** |
-| `ADR-08.2.2-06` | RBAC 四角色模型 | **`PROPOSED`** |
-| `ADR-08.2.2-07` | Site Scope 服务端强制 | **`PROPOSED`** |
-| `ADR-08.2.2-08` | Resource Scope 默认关闭、可选启用 | **`PROPOSED`** |
-| `ADR-08.2.2-09` | 用户平面与机器平面严格分离 | **`PROPOSED`** |
-| `ADR-08.2.2-10` | 命令双平面二次授权链 | **`PROPOSED`** |
-| `ADR-08.2.2-11` | 前端 WS 短时票据、URL 不放长期凭证 | **`PROPOSED`** |
-| `ADR-08.2.2-12` | 网络隔离不替代应用安全；审计身份化与限流 | **`PROPOSED`** |
+| `ADR-08.2.2-01` | 用户认证载体（Opaque + Cookie / Bearer） | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-02` | 会话生命周期、CSRF 与 XSS | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-03` | 不采用 JWT 作为默认方案 | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-04` | Agent 凭证体系保留并补齐生命周期 | **`APPROVED`**（补节点凭证分离） |
+| `ADR-08.2.2-05` | mTLS 仅用于跨互联网多站点 | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-06` | RBAC 四角色模型 | **`APPROVED`**（补 RF 资源角色） |
+| `ADR-08.2.2-07` | Site Scope 服务端强制 | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-08` | Resource Scope 默认关闭、可选启用 | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-09` | 用户平面与机器平面严格分离 | **`APPROVED`**（补本地 AP 平面） |
+| `ADR-08.2.2-10` | 命令双平面二次授权链 | **`APPROVED`**（补频道计划/AP 配置） |
+| `ADR-08.2.2-11` | 前端 WS 短时票据、URL 不放长期凭证 | **`APPROVED`**（2026-11-11） |
+| `ADR-08.2.2-12` | 网络隔离不替代应用安全；审计身份化与限流 | **`APPROVED`**（补 RF 查询配额） |
 
-**合计 15 份 ADR，`APPROVED = 0`。**
+**合计 15 份 ADR，`APPROVED = 15`（2026-11-11 人工批准；其中 8 份附补充条件作为实施前提）。**
 
 ---
 

@@ -2,7 +2,8 @@
 
 > 项目：QiYun / widscan58
 > 阶段：Phase 08.2.1 — 实际代码审计结果补充约束
-> 状态：**PROPOSED（待人工审批）**
+> 状态：**APPROVED（人工批准，2026-11-11）**
+> 审批记录：项目负责人 onebody 于 2026-11-11 批准（登记册 A1-01）；补充条件：RF 节点、测量与频道计划均属于 `site_id` 范围。
 > 日期：2026-11-05
 > 约束：不修改业务代码、不修改数据库、不修改 API、不修改协议
 > 依据：`docs/PHASE08_2_PLATFORM_INFORMATION_ARCHITECTURE.md`、Phase 07 验收文档、`site-server` 实际代码
@@ -236,4 +237,4 @@ Request → AuthN → principal
 
 - 多站点**当前不具备可用能力**，但数据库归属基础**已具备**。
 - 最小路径是“先安全、后 API、再 UI”，不涉及本次 UI 设计与代码修改。
-- 本 ADR 保持 **PROPOSED**，等待人工审批；未执行任何代码/数据库/API/协议变更。
+- 本 ADR 状态：**APPROVED**（2026-11-11 人工批准，补充条件：RF 节点/测量/频道计划均属 `site_id` 范围）；未执行任何代码/数据库/API/协议变更。

@@ -1,15 +1,15 @@
 # Phase 08.2.3 — 人工审批登记册（Human Approval Register）
 
 > 项目：QiYun / widscan58
-> 文档版本：1.0.0
+> 文档版本：1.0.1
 > 生成日期：2026-11-05
-> **Version**: 1.0.0
+> **Version**: 1.0.1
 > **Created**: 2026-11-05
-> **Last Modified**: 2026-11-05
-> **Baseline**: NO — 未纳入正式有效基线（待人工审批）
-> **Version History**: 1.0.0 (2026-11-05) 建立版本元数据（R1 规范化）；此前仅记为 v1.0，无版本历史记录
-> 文档状态：**PROPOSED（待人工审批）**
-> 重要声明：本登记册**不包含任何自动批准**。所有审批结果栏保持 `PENDING`，仅可由人工填写。
+> **Last Modified**: 2026-11-11
+> **Baseline**: NO — 未纳入正式有效基线（A3–A10 待人工审批）
+> **Version History**: 1.0.1 (2026-11-11) 登记 A1（3 份）、A2（12 份）ADR 人工批准结果；1.0.0 (2026-11-05) 建立版本元数据（R1 规范化）
+> 文档状态：**PARTIALLY APPROVED（A1、A2 已人工批准；A3–A10 待审批）**
+> 重要声明：本登记册**不包含任何自动批准**。审批结果栏仅由人工填写；2026-11-11 由项目负责人 onebody 批准 A1（3 份）与 A2（12 份）ADR。
 
 ---
 
@@ -42,9 +42,9 @@
 | 不批准后果 | 多站点需求无法进入实施；RF 数据的站点归属无法定稿；易出现前端假多站点 |
 | 依赖 | ADR-08.2.2-07（Site Scope）、SP-03、SP-13/14 |
 | 推荐意见 | 建议 `APPROVED`，并补充“RF 节点/测量/频道计划均属于 `site_id` 范围” |
-| 审批结果 | **PENDING** |
-| 审批人 / 日期 | — |
-| 备注 | — |
+| 审批结果 | **APPROVED**（含补充条件） |
+| 审批人 / 日期 | onebody（项目负责人） / 2026-11-11 |
+| 备注 | 补充条件随批准生效：RF 节点、测量与频道计划均属于 `site_id` 范围 |
 
 ### A1-02 `ADR-08.2.1-02` 事件流裁定
 
@@ -58,9 +58,9 @@
 | 不批准后果 | RF 图表无法确定轮询/推送策略；实时能力无法立项 |
 | 依赖 | SP-09（限流）、SP-12（WS 票据）、ADR-08.2.2-11 |
 | 推荐意见 | 建议 `APPROVED`，并补充“RF 读路径首版为只读轮询 1–2 s，不依赖前端 WS”（D-08.2.3-07） |
-| 审批结果 | **PENDING** |
-| 审批人 / 日期 | — |
-| 备注 | — |
+| 审批结果 | **APPROVED**（含补充条件） |
+| 审批人 / 日期 | onebody（项目负责人） / 2026-11-11 |
+| 备注 | 补充条件随批准生效：RF 读路径首版为只读轮询 1–2 s |
 
 ### A1-03 `ADR-08.2.1-03` 权限与安全裁定
 
@@ -74,17 +74,17 @@
 | 不批准后果 | `/rf/*` 无授权模型；写操作无法安全实施 |
 | 依赖 | ADR-08.2.2-06/07/09/10、SP-02/03/04 |
 | 推荐意见 | 建议 `APPROVED`，并补充 RF 四类资源的读写角色与节点所有权语义 |
-| 审批结果 | **PENDING** |
-| 审批人 / 日期 | — |
-| 备注 | — |
+| 审批结果 | **APPROVED**（含补充条件） |
+| 审批人 / 日期 | onebody（项目负责人） / 2026-11-11 |
+| 备注 | 补充条件随批准生效：需补齐 RF 四类资源读写角色与节点所有权语义 |
 
 ### A1 汇总
 
 | ID | 当前状态 | 推荐 | 依赖 | 审批结果 |
 |---|---|---|---|---|
-| A1-01 | PROPOSED | APPROVED（含补充） | A2 / SP-03 | PENDING |
-| A1-02 | PROPOSED | APPROVED（含补充） | SP-09/12 | PENDING |
-| A1-03 | PROPOSED | APPROVED（含补充） | SP-02/03/04 | PENDING |
+| A1-01 | APPROVED | APPROVED（含补充） | A2 / SP-03 | APPROVED |
+| A1-02 | APPROVED | APPROVED（含补充） | SP-09/12 | APPROVED |
+| A1-03 | APPROVED | APPROVED（含补充） | SP-02/03/04 | APPROVED |
 
 ---
 
@@ -94,24 +94,26 @@
 
 | ADR | 主题 | 当前状态 | 推荐意见 | 主要依赖 | 审批结果 |
 |---|---|---|---|---|---|
-| ADR-08.2.2-01 | 用户认证载体：混合（Opaque + Cookie / Bearer） | PROPOSED | APPROVED | SP-01 | PENDING |
-| ADR-08.2.2-02 | 会话生命周期、CSRF 与 XSS 防护 | PROPOSED | APPROVED | SP-01/06 | PENDING |
-| ADR-08.2.2-03 | 不采用 JWT 作为默认方案 | PROPOSED | APPROVED | SP-01 | PENDING |
-| ADR-08.2.2-04 | Agent 凭证体系保留并补齐生命周期 | PROPOSED | APPROVED（需补节点凭证分离） | SP-10 | PENDING |
-| ADR-08.2.2-05 | mTLS 仅用于跨互联网多站点 | PROPOSED | APPROVED | SP-16 | PENDING |
-| ADR-08.2.2-06 | RBAC 四角色模型 | PROPOSED | APPROVED（需补 RF 资源角色） | SP-04 | PENDING |
-| ADR-08.2.2-07 | Site Scope 服务端强制 | PROPOSED | APPROVED | SP-03 | PENDING |
-| ADR-08.2.2-08 | Resource Scope 默认关闭、可选启用 | PROPOSED | APPROVED | SP-05 | PENDING |
-| ADR-08.2.2-09 | 用户平面与机器平面严格分离 | PROPOSED | APPROVED（需补本地 AP 平面） | SP-02/12 | PENDING |
-| ADR-08.2.2-10 | 命令双平面二次授权链 | PROPOSED | APPROVED（需补频道计划/AP 配置） | SP-15 | PENDING |
-| ADR-08.2.2-11 | 前端 WS 短时票据、URL 不放长期凭证 | PROPOSED | APPROVED | SP-12 | PENDING |
-| ADR-08.2.2-12 | 网络隔离不替代应用安全；审计身份化与限流 | PROPOSED | APPROVED（需补 RF 查询配额） | SP-07/09 | PENDING |
+| ADR-08.2.2-01 | 用户认证载体：混合（Opaque + Cookie / Bearer） | APPROVED | APPROVED | SP-01 | APPROVED |
+| ADR-08.2.2-02 | 会话生命周期、CSRF 与 XSS 防护 | APPROVED | APPROVED | SP-01/06 | APPROVED |
+| ADR-08.2.2-03 | 不采用 JWT 作为默认方案 | APPROVED | APPROVED | SP-01 | APPROVED |
+| ADR-08.2.2-04 | Agent 凭证体系保留并补齐生命周期 | APPROVED | APPROVED（需补节点凭证分离） | SP-10 | APPROVED |
+| ADR-08.2.2-05 | mTLS 仅用于跨互联网多站点 | APPROVED | APPROVED | SP-16 | APPROVED |
+| ADR-08.2.2-06 | RBAC 四角色模型 | APPROVED | APPROVED（需补 RF 资源角色） | SP-04 | APPROVED |
+| ADR-08.2.2-07 | Site Scope 服务端强制 | APPROVED | APPROVED | SP-03 | APPROVED |
+| ADR-08.2.2-08 | Resource Scope 默认关闭、可选启用 | APPROVED | APPROVED | SP-05 | APPROVED |
+| ADR-08.2.2-09 | 用户平面与机器平面严格分离 | APPROVED | APPROVED（需补本地 AP 平面） | SP-02/12 | APPROVED |
+| ADR-08.2.2-10 | 命令双平面二次授权链 | APPROVED | APPROVED（需补频道计划/AP 配置） | SP-15 | APPROVED |
+| ADR-08.2.2-11 | 前端 WS 短时票据、URL 不放长期凭证 | APPROVED | APPROVED | SP-12 | APPROVED |
+| ADR-08.2.2-12 | 网络隔离不替代应用安全；审计身份化与限流 | APPROVED | APPROVED（需补 RF 查询配额） | SP-07/09 | APPROVED |
+
+> 审批记录：以上 12 份 ADR 由项目负责人 onebody 于 2026-11-11 批准（A2-01～A2-12）；带“需补”者以补充条件为实施前提。
 
 ### A2 说明
 
-- 全部保持原始 `PROPOSED`，本轮未改动原文与状态。
+- 2026-11-11 由项目负责人 onebody 批准全部 12 份 ADR（A2-01～A2-12）；其中 -04/-06/-09/-10/-12 以补充条件为实施前提。
 - 不批准的直接后果：`/rf/*` 接口、节点接入凭证、RF 页面写操作、任何 WS 实时通道均不得实施。
-- 推荐不是批准；审批结果栏必须由人工填写。
+- 推荐不是批准；审批结果栏必须由人工填写。批准仅赋予设计依据，不等于 SP-00–17 已启动或已实施。
 
 ---
 
@@ -254,8 +256,8 @@
 
 | 条件 | 状态 |
 |---|---|
-| A1 三份 ADR 批准 | PENDING |
-| A2 十二份安全 ADR 批准 | PENDING |
+| A1 三份 ADR 批准 | APPROVED（2026-11-11） |
+| A2 十二份安全 ADR 批准 | APPROVED（2026-11-11） |
 | 08.2.3 需求/架构基线确认 | PENDING（本报告为 CONDITIONAL PASS） |
 | WP-02 验收门禁 | CONDITIONAL PASS（D01 未决） |
 | WP02-D01 书面决定 | PENDING |
@@ -269,13 +271,13 @@
 
 理由：
 
-1. 安全 ADR 未批，任何 RF 接口与页面都缺授权基础。
+1. 安全 ADR 已批（A1/A2，2026-11-11），但 SP-00–17 全部未启动，RF 接口与页面仍无已实现的授权基础。
 2. 固件可行性未知，40+ 与 AP Direct 无法承诺。
-3. 数据方案未批，页面无法确定数据源。
+3. 数据方案未批（A6/A7），页面无法确定数据源。
 4. D01 未决，在线状态不可信。
 5. C-01 阶段编号与既有 08.3/08.4/08.5 文档冲突，需先裁定。
 
-> 若只启动**纯设计**（无代码）可在 A1/A2 批准后考虑 `CONDITIONAL GO`；本报告不自动启动。
+> A1/A2 批准已满足“纯设计（无代码）可考虑 CONDITIONAL GO”的前置条件；是否以此方式启动 08.3 仍需人工书面决定，本报告不自动启动。
 
 | 审批结果 | **PENDING** |
 |---|---|
@@ -287,8 +289,8 @@
 
 | ID | 决策事项 | 当前状态 | 推荐意见 | 依赖项 | 审批结果 |
 |---|---|---|---|---|---|
-| A1 | 08.2.1 三份 ADR | PROPOSED | APPROVED（附补充） | A2、SP-03 | PENDING |
-| A2 | 08.2.2 十二份安全 ADR | PROPOSED | APPROVED（附补充） | SP-00–17 | PENDING |
+| A1 | 08.2.1 三份 ADR | APPROVED | APPROVED（附补充） | A2、SP-03 | APPROVED（2026-11-11） |
+| A2 | 08.2.2 十二份安全 ADR | APPROVED | APPROVED（附补充） | SP-00–17 | APPROVED（2026-11-11） |
 | A3 | 40+ 频点语义 | PROPOSED | APPROVED（语义层） | A8 | PENDING |
 | A4 | AP Direct 定位 | PROPOSED | APPROVED（定位层） | A8 | PENDING |
 | A5 | 多 AP 汇聚 | PROPOSED | C1 优先；禁止 C5 | 硬件选型 | PENDING |
@@ -304,8 +306,8 @@
 
 | ID | 审批结果 | 审批人 | 日期 | 备注 |
 |---|---|---|---|---|
-| A1 | | | | |
-| A2 | | | | |
+| A1 | APPROVED | onebody（项目负责人） | 2026-11-11 | 3 份 ADR 批准，含补充条件（注册册 A1-01～A1-03） |
+| A2 | APPROVED | onebody（项目负责人） | 2026-11-11 | 12 份 ADR 批准，-04/-06/-09/-10/-12 附补充条件（A2-01～A2-12） |
 | A3 | | | | |
 | A4 | | | | |
 | A5 | | | | |
@@ -315,4 +317,4 @@
 | A9 | | | | |
 | A10 | | | | |
 
-**本登记册未作出任何批准。**
+**本登记册仅登记 A1（3 份）与 A2（12 份）经人工批准；A3–A10 仍未作出任何批准。**

@@ -2,7 +2,8 @@
 
 > 项目：QiYun / widscan58
 > 阶段：Phase 08.2.1 — 实际代码审计结果补充约束
-> 状态：**PROPOSED（待人工审批）**
+> 状态：**APPROVED（人工批准，2026-11-11）**
+> 审批记录：项目负责人 onebody 于 2026-11-11 批准（登记册 A1-02）；补充条件：RF 读路径首版为只读轮询 1–2 s，不依赖前端 WS（D-08.2.3-07）。
 > 日期：2026-11-05
 > 约束：不修改业务代码、不修改数据库、不修改 API、不修改协议
 > 依据：`gateway-agent/src/widscan_agent/site_connector.py`、`events/bus.py`、`site-server` WS 接入、`site-server/web/app.js`、08.5 运行数据
@@ -242,4 +243,4 @@ connect → auth → subscribe(site)
 
 - 当前事件流 = **Agent→Server 有双队列，Server→Frontend 无事件流**。
 - 所有可靠性增强（配额、持久化、ACK、WS、快照、退避）均**未实施**，列为独立阶段。
-- 本 ADR 保持 **PROPOSED**，等待人工审批；本轮未修改任何业务代码/协议。
+- 本 ADR 状态：**APPROVED**（2026-11-11 人工批准，补充条件：RF 读路径首版为只读轮询 1–2 s）；本轮未修改任何业务代码/协议。
